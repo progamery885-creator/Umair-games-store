@@ -3,139 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMAIR KHAN - 1DollarGames</title>
+    <title>UMAIR KHAN - گیمنگ سٹور</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap">
     <style>
-        /* Prism Flux Theme Colors */
         :root {
-            --primary-black: #0a0a0a;
-            --carbon-dark: #121212;
-            --accent-purple: #9945ff;
-            --accent-cyan: #00ffff;
-            --accent-green: #25d366;
-            --text-primary: #ffffff;
-            --price-color: #00ff88;
+            --primary: #00ffff;
+            --secondary: #ff0080;
+            --accent: #25d366;
+            --dark-bg: #0a0e17;
+            --card-bg: #161b26;
+            --text: #ffffff;
+            --price-color: #00ff00;
+            --light-mode-bg: #f5f5f5;
+            --light-mode-text: #222;
+            --light-mode-card: #ffffff;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Almarai', sans-serif; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--primary-black);
-            color: var(--text-primary);
-            margin: 0;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #131822 100%);
+            color: var(--text);
+            min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+>
+        body.light-mode {
+            background: linear-gradient(135deg, var(--light-mode-bg) 0%, #e0e0e0 100%);
+            color: var(--light-mode-text);
         }
 
-        /* Animated Background Grid */
-        body::before {
-            content: '';
+        .theme-toggle {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(153, 69, 255, 0.05) 2px, transparent 2px), 
-                              linear-gradient(90deg, rgba(153, 69, 255, 0.05) 2px, transparent 2px);
-            background-size: 80px 80px;
-            z-index: -1;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
         }
 
         .header {
-            background: rgba(18, 18, 18, 0.95);
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            text-align: center;
-            border-bottom: 3px solid var(--accent-purple);
-            position: sticky;
+            background: rgba(10, 14, 23, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 5px 20px rgba(153, 69, 255, 0.3);
+            border-bottom: 3px solid var(--primary);
+            text-align: center;
         }
 
-        .logo-text {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .light-mode .header { background: #fff; border-bottom-color: var(--secondary); }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
         }
 
-        .search-container { padding: 30px 20px; max-width: 700px; margin: 0 auto; }
+        .light-mode .logo h1 { color: var(--secondary); }
+
+        .search-container { padding: 140px 20px 40px; max-width: 800px; margin: 0 auto; }
         .search-box {
             width: 100%;
             padding: 15px 25px;
-            border-radius: 50px;
-            border: 2px solid var(--accent-purple);
-            background: var(--carbon-dark);
-            color: white;
-            font-size: 1.1rem;
+            border-radius: 35px;
+            border: 3px solid var(--secondary);
+            background: rgba(22, 27, 38, 0.9);
+            color: #fff;
             outline: none;
-            transition: 0.3s;
+            font-size: 1.1rem;
         }
-        .search-box:focus { box-shadow: 0 0 20px var(--accent-purple); }
 
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
 
         .card {
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-            border: 1px solid #333;
+            background: var(--card-bg);
             border-radius: 20px;
             overflow: hidden;
-            transition: 0.4s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s;
             display: flex;
             flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
-        }
+        .light-mode .card { background: #fff; border-color: #ddd; }
 
-        .img-box { width: 100%; height: 230px; object-fit: cover; border-bottom: 1px solid #222; }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+        .img-box { width: 100%; height: 220px; object-fit: cover; }
 
         .content { padding: 20px; text-align: center; flex-grow: 1; }
-        .game-title { font-size: 1.3rem; color: var(--accent-cyan); margin-bottom: 10px; height: 50px; display: flex; align-items: center; justify-content: center; }
-        .price { font-size: 1.8rem; color: var(--price-color); font-weight: bold; margin: 15px 0; }
+        .price { font-size: 1.6rem; color: var(--price-color); font-weight: bold; margin: 15px 0; }
 
         .wa-btn {
-            background: var(--accent-green);
+            background: var(--accent);
             color: white;
             text-decoration: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             font-weight: bold;
-            transition: 0.3s;
         }
-        .wa-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
 
-        .about-section {
-            background: rgba(26, 26, 26, 0.9);
-            padding: 50px;
+        .about-box {
+            background: rgba(22, 27, 38, 0.9);
+            padding: 40px;
             margin: 60px 0;
             border-radius: 30px;
-            border: 2px solid var(--accent-purple);
+            border: 3px solid var(--primary);
             text-align: center;
         }
 
-        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 30px; }
-        .social-links a { color: var(--accent-cyan); font-size: 3rem; transition: 0.3s; }
-        .social-links a:hover { color: var(--accent-purple); transform: translateY(-5px); }
+        .social-links { margin-top: 30px; display: flex; justify-content: center; gap: 40px; }
+        .social-links a { color: var(--primary); font-size: 3rem; transition: 0.3s; }
+        .social-links a:hover { color: var(--secondary); transform: scale(1.2); }
 
-        footer { text-align: center; padding: 40px; color: #666; border-top: 1px solid #222; }
+        footer { text-align: center; padding: 40px; border-top: 1px solid #333; }
     </style>
 </head>
-<body>
+<body id="body">
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
 
     <header class="header">
-        <div class="logo-text">1DollarGames</div>
+        <div class="logo"><h1>UMAIR KHAN گیمنگ سٹور</h1></div>
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="گیم کا نام یہاں لکھیں..." onkeyup="searchGame()">
+        <input type="text" id="searchInput" class="search-box" placeholder="گیم کا نام تلاش کریں..." onkeyup="searchGame()">
     </div>
 
     <div class="container">
@@ -143,116 +156,101 @@
             
             <div class="card" data-name="Far Cry 3">
                 <img src="https://i.ibb.co/vCLXjzXY/Far-Cry-3-PAL-box-art-1.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Far Cry 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Far Cry 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
 
             <div class="card" data-name="GTA Vice City">
                 <img src="https://img.sanishtech.com/u/bb1c29618e8394739833467d54d54409.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA Vice City</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>GTA Vice City</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="GTA San Andreas">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12120/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA San Andreas</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>GTA San Andreas</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="GTA IV">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12210/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA IV</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>GTA IV</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="GTA V">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">GTA V</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>GTA V</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
 
             <div class="card" data-name="Project I.G.I">
                 <img src="https://img.sanishtech.com/u/63a2d1fc0e87926e6ffd5206b5426246.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">Project I.G.I</h3><div class="price">Rs 10</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Project I.G.I</h3><div class="price">Rs 10</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Tekken Tag">
                 <img src="https://img.sanishtech.com/u/dbca0feac583ee8321c31e395ad23749.webp" class="img-box">
-                <div class="content"><h3 class="game-title">Tekken Tag</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Tekken Tag</h3><div class="price">Rs 20</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="House of the Dead 2">
                 <img src="https://img.sanishtech.com/u/069f6ad5c2332de255646346917b4828.webp" class="img-box">
-                <div class="content"><h3 class="game-title">House of the Dead 2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>House of the Dead 2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="House of the Dead 3">
                 <img src="https://img.sanishtech.com/u/6e85c650e4d7510aa81f346cc5d19e73.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">House of the Dead 3</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>House of the Dead 3</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
 
             <div class="card" data-name="Sniper Ghost Warrior 2">
                 <img src="https://i.ibb.co/S7XcCZBg/1001060093.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Sniper Ghost Warrior 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Sniper Ghost Warrior 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Sniper Elite V2">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/728740/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Sniper Elite V2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Sniper Elite V2</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
 
             <div class="card" data-name="Crysis 2">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/108800/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Crysis 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Crysis 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Crysis 3">
                 <img src="https://img.sanishtech.com/u/c6f595ea4dfea14d4664dddfe26c7a9e.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">Crysis 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Crysis 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
-            <div class="card" data-name="Battlefield: Bad Company 2">
+            <div class="card" data-name="Battlefield: BC 2">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/24960/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Battlefield: BC 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Battlefield: BC 2</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
 
             <div class="card" data-name="Indiana Jones">
                 <img src="https://img.sanishtech.com/u/c4a0754f4b308258468f3f370ef4c7c7.png" class="img-box">
-                <div class="content"><h3 class="game-title">Indiana Jones</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Indiana Jones</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Commandos Strike Force">
                 <img src="https://img.sanishtech.com/u/5f9ce842bba9c26723d8c37c0df44996.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Commandos</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Commandos</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="SWAT 4">
                 <img src="https://img.sanishtech.com/u/0e4653b44c7c95153aa1d1db60c09608.jpeg" class="img-box">
-                <div class="content"><h3 class="game-title">SWAT 4</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>SWAT 4</h3><div class="price">Rs 30</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="F.E.A.R. 3">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21100/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">F.E.A.R. 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>F.E.A.R. 3</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Spec Ops: The Line">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/50300/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Spec Ops: The Line</h3><div class="price">Rs 60</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Spec Ops: The Line</h3><div class="price">Rs 60</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
             <div class="card" data-name="Ether One">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/265950/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Ether One</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+                <div class="content"><h3>Ether One</h3><div class="price">Rs 100</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
             </div>
-
-            <div class="card" data-name="Tomb Raider Anniversary">
+            <div class="card" data-name="not available: Anniversary">
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/8000/header.jpg" class="img-box">
-                <div class="content"><h3 class="game-title">Tomb Raider</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
-            </div>
+                <div class="content"><h3>not available</h3><div class="price">Rs 50</div><a href="https://wa.me/923128310019" class="wa-btn"><i class="fab fa-whatsapp"></i> ابھی خریدیں</a></div>
+            </div
 
         </div>
 
-        <div class="about-section">
-            <h2 style="color: var(--accent-cyan); margin-bottom: 20px;">رابطہ کی معلومات</h2>
-            <p style="font-size: 1.3rem;">نام: <strong>عمیر خان</strong></p>
-            <p style="font-size: 1.1rem;">مقام: مردان، خیبر پختونخوا</p>
-            <a href="tel:03128310019" style="color:var(--accent-cyan); font-size:1.5rem; text-decoration:none;">0312-8310019</a>
+        <div class="about-box">
+            <h2>رابطہ کی معلومات</h2>
+            <p>نام: <strong>عمیر خان</strong></p>
+            <p>مقام: مردان، خیبر پختونخوا</p>
+            <a href="https://wa.me/923128310019" class="whatsapp-link" style="color:var(--accent); font-size:1.8rem; text-decoration:none; display:block; margin:15px 0;">03128310019</a>
             
             <div class="social-links">
                 <a href="https://www.facebook.com/share/18Bd1sQzxo/" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -261,11 +259,17 @@
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 UMAIR KHAN | Gaming Store Website</p>
-    </footer>
+    <footer><p>© 2026 UMAIR KHAN Gaming Store</p></footer>
 
     <script>
+        function toggleTheme() {
+            const body = document.getElementById('body');
+            const icon = document.getElementById('themeIcon');
+            body.classList.toggle('light-mode');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
         function searchGame() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('card');
@@ -276,5 +280,5 @@
         }
     </script>
 </body>
-</html>
-
+                                                                                                                                                   </html>
+                                                           
